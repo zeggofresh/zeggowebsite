@@ -1,4 +1,4 @@
-import { FaSearch, FaShoppingCart, FaUserCircle, FaBars } from "react-icons/fa";
+import { FaSearch, FaShoppingCart, FaUserCircle, FaBars, FaMapMarkerAlt } from "react-icons/fa";
 import { MdKeyboardArrowDown, MdClose } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,9 +11,12 @@ export default function Navbar() {
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState();
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+  const [userLocation, setUserLocation] = useState(null);
+  const [showLocationPrompt, setShowLocationPrompt] = useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const { cartCount } = useCart();
   const navigate = useNavigate();
 
@@ -21,6 +24,113 @@ export default function Navbar() {
     document.body.style.overflow = isCartOpen ? "hidden" : "unset";
     return () => { document.body.style.overflow = "unset"; };
   }, [isCartOpen]);
+
+  // Check for saved location on component mount
+  useEffect(() => {
+    const savedLocation = localStorage.getItem('userLocation');
+    if (savedLocation) {
+      setUserLocation(savedLocation);
+    } else {
+      // Show location prompt if no saved location
+      const hasSeenPrompt = localStorage.getItem('hasSeenLocationPrompt');
+      if (!hasSeenPrompt) {
+        setTimeout(() => {
+          setShowLocationPrompt(true);
+          localStorage.setItem('hasSeenLocationPrompt', 'true');
+        }, 2000); // Show prompt after 2 seconds
+      }
+    }
+  }, []);
+
+  const detectLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          
+          try {
+            // Using a free reverse geocoding API (Nominatim)
+            const response = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+            );
+            const data = await response.json();
+            
+            // Extract the location name - try different address formats
+            let locationName = '';
+            if (data.display_name) {
+              // Get the first part of the display name which typically contains the most relevant info
+              const parts = data.display_name.split(',');
+              locationName = parts.slice(0, 3).join(',').trim(); // Take first 3 parts
+            } else {
+              locationName = `Near Lat: ${latitude.toFixed(4)}, Lng: ${longitude.toFixed(4)}`;
+            }
+            
+            setUserLocation(locationName);
+            localStorage.setItem('userLocation', locationName);
+            setIsLocationModalOpen(false);
+            setShowLocationPrompt(false);
+          } catch (error) {
+            console.error('Error getting location name:', error);
+            // Fallback to coordinates if API fails
+            const fallbackLocation = `Near Lat: ${latitude.toFixed(4)}, Lng: ${longitude.toFixed(4)}`;
+            setUserLocation(fallbackLocation);
+            localStorage.setItem('userLocation', fallbackLocation);
+            setIsLocationModalOpen(false);
+            setShowLocationPrompt(false);
+          }
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+          // If geolocation fails, prompt for manual input
+          setIsLocationModalOpen(true);
+          setShowLocationPrompt(false);
+        }
+      );
+    } else {
+      // Geolocation not supported, prompt for manual input
+      setIsLocationModalOpen(true);
+      setShowLocationPrompt(false);
+    }
+  };
+
+  const handleManualLocation = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const location = formData.get('location');
+    if (location) {
+      setUserLocation(location);
+      localStorage.setItem('userLocation', location);
+      setIsLocationModalOpen(false);
+      setShowLocationPrompt(false);
+    }
+  };
+
+  // Function to get location from coordinates
+  const getLocationFromCoordinates = async (latitude, longitude) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+      );
+      const data = await response.json();
+      
+      let locationName = '';
+      if (data.display_name) {
+        const parts = data.display_name.split(',');
+        locationName = parts.slice(0, 3).join(',').trim();
+      } else {
+        locationName = `Near Lat: ${latitude.toFixed(4)}, Lng: ${longitude.toFixed(4)}`;
+      }
+      
+      return locationName;
+    } catch (error) {
+      console.error('Error getting location name:', error);
+      return `Near Lat: ${latitude.toFixed(4)}, Lng: ${longitude.toFixed(4)}`;
+    }
+  };
+
+  const changeLocation = () => {
+    setIsLocationModalOpen(true);
+  };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -59,8 +169,12 @@ export default function Navbar() {
               <span className="text-[15px] sm:text-[18px] font-bold text-green-600">
                 ⚡12 minutes
               </span>
-              <span className="flex items-center gap-1 text-[13px] sm:text-[15px] font-semibold text-gray-600 cursor-pointer">
-                Agarkar Nagar – Bund Garden Road
+              <span 
+                className="flex items-center gap-1 text-[13px] sm:text-[15px] font-semibold text-gray-600 cursor-pointer max-w-[200px] truncate"
+                onClick={changeLocation}
+              >
+                <FaMapMarkerAlt className="text-green-600" size={14} />
+                {userLocation || "Set Location"}
                 <MdKeyboardArrowDown size={16} />
               </span>
             </div>
@@ -219,7 +333,10 @@ export default function Navbar() {
 
               <div className="text-sm text-gray-600 font-semibold">
                 ⚡ 12 minutes <br />
-                Agarkar Nagar – Bund Garden Road
+                <span className="flex items-center gap-1">
+                  <FaMapMarkerAlt className="text-green-600" size={12} />
+                  {userLocation || "Set Location"}
+                </span>
               </div>
             </div>
           </div>
@@ -228,6 +345,77 @@ export default function Navbar() {
 
       {/* Login Popup */}
       <Login isOpen={isLoginPopupOpen} onClose={() => setIsLoginPopupOpen(false)} />
+
+      {/* Location Prompt */}
+      {showLocationPrompt && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all duration-300 scale-100">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <FaMapMarkerAlt className="text-green-600" /> Set Your Location
+              </h3>
+              <button 
+                onClick={() => setShowLocationPrompt(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <MdClose size={24} />
+              </button>
+            </div>
+            <p className="text-gray-600 mb-6">To provide you with the best service, please share your location.</p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={detectLocation}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md"
+              >
+                <FaMapMarkerAlt /> Use Current Location
+              </button>
+              <button
+                onClick={() => { setShowLocationPrompt(false); setIsLocationModalOpen(true); }}
+                className="w-full bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-800 font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-sm"
+              >
+                Enter Location Manually
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Location Modal */}
+      {isLocationModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all duration-300 scale-100">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+                <FaMapMarkerAlt className="text-green-600" /> Enter Your Location
+              </h3>
+              <button 
+                onClick={() => setIsLocationModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <MdClose size={24} />
+              </button>
+            </div>
+            <form onSubmit={handleManualLocation} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Enter your area, street, or landmark"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-md"
+              >
+                Save Location
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Cart Drawer */}
       {isCartOpen && (

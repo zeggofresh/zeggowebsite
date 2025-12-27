@@ -28,7 +28,7 @@ export default function CategoryBar() {
 
   const isActive = (path) =>
     path === "/"
-      ? location.pathname === "/"
+      ? location.pathname === "/" || location.pathname === "/zeggowebsite/" || location.pathname === "/zeggowebsite"
       : location.pathname.startsWith(path);
 
   return (

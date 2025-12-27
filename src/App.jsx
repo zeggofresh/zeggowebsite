@@ -84,7 +84,7 @@ function App() {
   return (
     <HelmetProvider>
       <CartProvider>
-        <Router>
+        <Router basename="/zeggowebsite">
           <AppContent />
         </Router>
       </CartProvider>
