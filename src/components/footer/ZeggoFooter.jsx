@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   FaInstagram,
   FaTwitter,
@@ -85,12 +86,21 @@ const Footer = () => {
                 "Franchise with Zeggo",
               ].map((item) => (
                 <li key={item}>
-                  <a
-                    href="#"
-                    className="text-gray-800 hover:text-pink-600"
-                  >
-                    {item}
-                  </a>
+                  {item === "Privacy Policy" ? (
+                    <Link
+                      to="/privacy-policy"
+                      className="text-gray-800 hover:text-pink-600"
+                    >
+                      {item}
+                    </Link>
+                  ) : (
+                    <a
+                      href="#"
+                      className="text-gray-800 hover:text-pink-600"
+                    >
+                      {item}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

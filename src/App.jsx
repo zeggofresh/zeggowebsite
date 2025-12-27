@@ -21,11 +21,14 @@ import Beauty from "./components/pages/beauty/Beauty";
 import Fashion from "./components/pages/fashion/Fashion";
 import ProductDetail from "./components/pages/product/ProductDetail";
 import OrderTracking from "./components/pages/OrderTracking";
+import PrivacyPolicy from "./components/pages/PrivacyPolicy";
 
 function AppContent() {
   const location = useLocation();
   const isProductDetailPage = location.pathname.startsWith("/product/");
   const isOrderTrackingPage = location.pathname === "/order-tracking";
+
+  // Note: Footer is now shown on all pages regardless of route
 
   // Scroll to top on route change
   useEffect(() => {
@@ -39,10 +42,11 @@ function AppContent() {
         <Navbar />
         {/* CATEGORY BAR - Hide on product detail and order tracking page */}
         {!isProductDetailPage && !isOrderTrackingPage && <CategoryBar />}
+        {/* Note: Footer is now shown on all pages, including product detail and order tracking */}
       </div>
 
       {/* PAGE CONTENT */}
-      <div className={!isProductDetailPage && !isOrderTrackingPage ? "pt-[140px]" : "pt-[70px]"}>
+      <div className="pt-[140px]">
         <Routes>
           <Route path="/" element={
             <>
@@ -63,16 +67,15 @@ function AppContent() {
           <Route path="/fashion" element={<Fashion />} />
           <Route path="/product/:productId" element={<ProductDetail />} />
           <Route path="/order-tracking" element={<OrderTracking />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </div>
 
-      {/* FOOTER - Hide on product detail and order tracking page */}
-      {!isProductDetailPage && !isOrderTrackingPage && (
-        <>
-          <PopularSearches/>
-          <Footer/>
-        </>
-      )}
+      {/* FOOTER - Show on all pages */}
+      <>
+        <PopularSearches/>
+        <Footer/>
+      </>
     </div>
   );
 }
