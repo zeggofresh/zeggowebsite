@@ -1,4 +1,6 @@
 {
+  "homepage": "https://zeggofresh.github.io/zeggowebsite",
+
   "name": "zeggo-web",
   "private": true,
   "version": "0.0.0",
@@ -8,6 +10,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
+    ,"predeploy": "npm run build",
+"deploy": "gh-pages -d dist"
+
   },
   "dependencies": {
     "leaflet": "^1.9.4",
