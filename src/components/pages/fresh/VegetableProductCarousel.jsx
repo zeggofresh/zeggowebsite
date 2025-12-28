@@ -77,7 +77,7 @@ const VegetableProductCarousel = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full bg-gray-50 py-5">
+    <div className="w-full bg-gray-50 py-20">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-4">
           {products.map((item) => {

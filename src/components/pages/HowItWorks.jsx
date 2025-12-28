@@ -12,7 +12,7 @@ export default function HowItWorks() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
           {/* Card 1: Open the App */}
-          <div className="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-lg transition">
+          <div className="bg-white rounded-xl shadow-md p-8 text-center transition">
             <img
               src="https://static.vecteezy.com/system/resources/previews/004/999/424/non_2x/fast-delivery-service-concept-hand-holding-smart-phone-open-app-image-cartoon-illustration-isolated-on-white-background-free-vector.jpg"
               alt="Open App"
@@ -25,7 +25,7 @@ export default function HowItWorks() {
           </div>
 
           {/* Card 2: Place Order */}
-          <div className="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-lg transition">
+          <div className="bg-white rounded-xl shadow-md p-8 text-center transition">
             <img
               src="https://static.vecteezy.com/system/resources/previews/066/741/937/non_2x/icon-representing-a-complete-cart-full-cart-trolley-groceries-purchase-shopping-marketing-basket-online-shopping-supermarket-buy-vector.jpg"
               alt="Place Order"
@@ -38,7 +38,7 @@ export default function HowItWorks() {
           </div>
 
           {/* Card 3: Premium Benefits - Fast & Free Delivery */}
-          <div className="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-lg transition border-2 border-yellow-400 relative overflow-hidden">
+          <div className="bg-white rounded-xl shadow-md p-8 text-center transition border-2 border-yellow-400 relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-yellow-400 text-white px-4 py-1 text-xs font-bold rounded-bl-lg">
               PREMIUM
             </div>

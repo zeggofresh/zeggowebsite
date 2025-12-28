@@ -43,7 +43,7 @@ export default function CategoryCards() {
   };
 
   return (
-    <div className="w-full bg-white py-8 font-inter">
+    <div className="w-full bg-white py-8 font-inter mt-3">
       <div className="max-w-7xl mx-auto px-6 relative">
 
         {/* Left Arrow */}
@@ -51,7 +51,7 @@ export default function CategoryCards() {
           onClick={() => scroll("left")}
           className="absolute left-2 top-1/2 -translate-y-1/2 z-10
                      bg-white shadow-lg rounded-full w-10 h-10
-                     flex items-center justify-center hover:scale-105 transition"
+                     flex items-center justify-center transition"
         >
           <FaChevronLeft size={16} />
         </button>
@@ -73,7 +73,7 @@ export default function CategoryCards() {
                            bg-gradient-to-br from-gray-100 to-gray-50
                            flex items-center justify-center
                            text-[34px] text-purple-600
-                           group-hover:scale-110 transition"
+                           transition"
               >
                 {cat.icon}
               </div>
@@ -90,7 +90,7 @@ export default function CategoryCards() {
           onClick={() => scroll("right")}
           className="absolute right-2 top-1/2 -translate-y-1/2 z-10
                      bg-white shadow-lg rounded-full w-10 h-10
-                     flex items-center justify-center hover:scale-105 transition"
+                     flex items-center justify-center transition"
         >
           <FaChevronRight size={16} />
         </button>

@@ -9,10 +9,11 @@ import {
   Sparkles,
   Shirt,
 } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CategoryBar() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const categories = [
     { name: "All", path: "/", icon: ShoppingBag },
@@ -41,10 +42,10 @@ export default function CategoryBar() {
             const active = isActive(cat.path);
 
             return (
-              <Link
+              <button
                 key={index}
-                to={cat.path}
-                className="relative flex flex-col items-center justify-center group"
+                onClick={() => navigate(cat.path)}
+                className="relative flex flex-col items-center justify-center group focus:outline-none"
               >
                 {/* ICON + TEXT */}
                 <span
@@ -53,7 +54,7 @@ export default function CategoryBar() {
                   ${
                     active
                       ? "text-purple-600"
-                      : "text-gray-600 group-hover:text-purple-600 group-hover:bg-purple-50"
+                      : "text-gray-600"
                   }`}
                 >
                   <Icon
@@ -75,7 +76,7 @@ export default function CategoryBar() {
                     active ? "w-full opacity-100" : "w-0 opacity-0"
                   }`}
                 />
-              </Link>
+              </button>
             );
           })}
 

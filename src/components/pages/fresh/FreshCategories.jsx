@@ -47,7 +47,7 @@ export default function FreshCategory() {
                   ${
                     isActive
                       ? "bg-pink-100 text-pink-600 scale-105 shadow-sm"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      : "bg-gray-100 text-gray-700"
                   }`}
                 >
                   {item.icon}

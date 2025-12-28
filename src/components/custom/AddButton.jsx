@@ -5,9 +5,9 @@ const AddButton = ({
   cartItem, 
   onAddToCart, 
   onQuantityChange, 
-  buttonClass = "px-3 py-1 bg-pink-600 text-white font-bold text-sm hover:bg-pink-700",
-  minusButtonClass = "px-3 py-1 bg-white text-pink-600 font-bold text-sm hover:bg-pink-50",
-  plusButtonClass = "px-3 py-1 bg-pink-600 text-white font-bold text-sm hover:bg-pink-700",
+  buttonClass = "px-3 py-1 bg-pink-600 text-white font-bold text-sm",
+  minusButtonClass = "px-3 py-1 bg-white text-pink-600 font-bold text-sm",
+  plusButtonClass = "px-3 py-1 bg-pink-600 text-white font-bold text-sm",
   containerClass = "self-end mb-2 flex items-center border border-pink-600 rounded-full overflow-hidden"
 }) => {
   return (

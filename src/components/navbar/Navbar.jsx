@@ -161,22 +161,25 @@ export default function Navbar() {
 
           {/* Logo + Location */}
           <div className="flex items-center gap-3 min-w-fit">
-            <h1 className="text-3xl sm:text-[36px] 3xl font-[Nunito] font-extrabold text-pink-600 tracking-tight cursor-pointer hover:text-pink-700 transition-colors">
+            <h1 className="text-3xl sm:text-[36px] 3xl font-[Nunito] font-extrabold text-pink-600 tracking-tight cursor-pointer transition-colors">
               zeggo
             </h1>
 
-            <div className="hidden sm:flex flex-col leading-tight">
-              <span className="text-[15px] sm:text-[18px] font-bold text-green-600">
+            <div className="flex flex-col leading-tight">
+              <span className="text-[13px] sm:text-[15px] font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
                 ⚡12 minutes
               </span>
-              <span 
-                className="flex items-center gap-1 text-[13px] sm:text-[15px] font-semibold text-gray-600 cursor-pointer max-w-[200px] truncate"
+              <button 
+                className="flex items-center gap-1 text-[11px] sm:text-[13px] font-semibold text-gray-700 cursor-pointer group transition-all"
                 onClick={changeLocation}
+                title={userLocation || "Set Location"}
               >
-                <FaMapMarkerAlt className="text-green-600" size={14} />
-                {userLocation || "Set Location"}
-                <MdKeyboardArrowDown size={16} />
-              </span>
+                <FaMapMarkerAlt className="text-green-600" size={12} />
+                <span className="max-w-[80px] sm:max-w-[150px] truncate">
+                  {userLocation || "Set Location"}
+                </span>
+                <MdKeyboardArrowDown className="transition-transform" size={14} />
+              </button>
             </div>
           </div>
 
@@ -202,7 +205,7 @@ export default function Navbar() {
                       <div
                         key={product.id}
                         onClick={() => handleProductClick(product.id)}
-                        className="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                        className="flex items-center gap-3 p-3 cursor-pointer border-b last:border-b-0"
                       >
                         <img
                           src={product.img}
@@ -231,7 +234,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-8 min-w-fit">
             <button
               onClick={() => setIsLoginPopupOpen(true)}
-              className="flex items-center gap-2 text-[17px] font-bold text-gray-700 hover:text-purple-600 transition-colors"
+              className="flex items-center gap-2 text-[17px] font-bold text-gray-700 transition-colors"
             >
               <FaUserCircle size={20} />
               Login
@@ -239,7 +242,7 @@ export default function Navbar() {
 
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative flex items-center gap-2 text-[17px] font-bold text-gray-700 hover:text-pink-600 transition-colors"
+              className="relative flex items-center gap-2 text-[17px] font-bold text-gray-700 transition-colors"
             >
               <FaShoppingCart size={20} />
               Cart
@@ -253,7 +256,7 @@ export default function Navbar() {
 
           {/* Mobile Icons */}
           <div className="flex md:hidden items-center gap-4 ml-auto">
-            <button onClick={() => setIsCartOpen(true)} className="relative hover:scale-110 transition-transform">
+            <button onClick={() => setIsCartOpen(true)} className="relative transition-transform">
               <FaShoppingCart size={20} className="text-gray-700" />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-gradient-to-r from-pink-500 to-red-500 text-white text-xs h-4 w-4 rounded-full flex items-center justify-center font-bold">
@@ -262,7 +265,7 @@ export default function Navbar() {
               )}
             </button>
 
-            <button onClick={() => setMobileMenu(true)} className="hover:scale-110 transition-transform">
+            <button onClick={() => setMobileMenu(true)} className="transition-transform">
               <FaBars size={22} className="text-gray-700" />
             </button>
           </div>
@@ -288,7 +291,7 @@ export default function Navbar() {
                     <div
                       key={product.id}
                       onClick={() => handleProductClick(product.id)}
-                      className="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-b-0"
+                      className="flex items-center gap-3 p-3 cursor-pointer border-b last:border-b-0"
                     >
                       <img
                         src={product.img}
@@ -325,18 +328,24 @@ export default function Navbar() {
             <div className="mt-10 space-y-5">
               <button
                 onClick={() => { setIsLoginPopupOpen(true); setMobileMenu(false); }}
-                className="flex items-center gap-2 text-lg font-bold text-gray-700 hover:text-purple-600 transition-colors"
+                className="flex items-center gap-2 text-lg font-bold text-gray-700 transition-colors"
               >
                 <FaUserCircle />
                 Login
               </button>
 
-              <div className="text-sm text-gray-600 font-semibold">
-                ⚡ 12 minutes <br />
-                <span className="flex items-center gap-1">
+              <div className="text-sm text-gray-700 font-semibold">
+                <span className="bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">⚡ 12 minutes</span>
+                <br />
+                <button 
+                  onClick={changeLocation}
+                  className="flex items-center gap-1 mt-1 transition-colors"
+                >
                   <FaMapMarkerAlt className="text-green-600" size={12} />
-                  {userLocation || "Set Location"}
-                </span>
+                  <span className="max-w-[200px] truncate" title={userLocation || "Set Location"}>
+                    {userLocation || "Set Location"}
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -348,30 +357,30 @@ export default function Navbar() {
 
       {/* Location Prompt */}
       {showLocationPrompt && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all duration-300 scale-100">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-7 transform transition-all duration-300 scale-100 animate-slideUp">
+            <div className="flex justify-between items-center mb-5">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent flex items-center gap-2">
                 <FaMapMarkerAlt className="text-green-600" /> Set Your Location
               </h3>
               <button 
                 onClick={() => setShowLocationPrompt(false)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-400 transition-all duration-300"
               >
                 <MdClose size={24} />
               </button>
             </div>
-            <p className="text-gray-600 mb-6">To provide you with the best service, please share your location.</p>
+            <p className="text-gray-600 mb-6 text-base">Get products delivered in just 12 minutes! Share your location for the fastest service.</p>
             <div className="flex flex-col gap-3">
               <button
                 onClick={detectLocation}
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-md"
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
               >
                 <FaMapMarkerAlt /> Use Current Location
               </button>
               <button
                 onClick={() => { setShowLocationPrompt(false); setIsLocationModalOpen(true); }}
-                className="w-full bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-800 font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-sm"
+                className="w-full bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 shadow-md"
               >
                 Enter Location Manually
               </button>
@@ -382,36 +391,45 @@ export default function Navbar() {
 
       {/* Location Modal */}
       {isLocationModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all duration-300 scale-100">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-7 transform transition-all duration-300 scale-100 animate-slideUp">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent flex items-center gap-2">
                 <FaMapMarkerAlt className="text-green-600" /> Enter Your Location
               </h3>
               <button 
                 onClick={() => setIsLocationModalOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-400 transition-all duration-300"
               >
                 <MdClose size={24} />
               </button>
             </div>
-            <form onSubmit={handleManualLocation} className="space-y-4">
+            <form onSubmit={handleManualLocation} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">Your Location</label>
                 <input
                   type="text"
                   name="location"
                   placeholder="Enter your area, street, or landmark"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all"
                   required
                 />
               </div>
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-md"
-              >
-                Save Location
-              </button>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={detectLocation}
+                  className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-lg flex items-center justify-center gap-2"
+                >
+                  <FaMapMarkerAlt /> Detect
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 shadow-lg"
+                >
+                  Save
+                </button>
+              </div>
             </form>
           </div>
         </div>

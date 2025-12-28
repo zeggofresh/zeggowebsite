@@ -112,7 +112,7 @@ export default function LaundryCare() {
     <div className="max-w-7xl mx-auto px-4 py-6 font-inter">
      <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold text-gray-900">Laundry Care</h2>
-        <button className="text-pink-600 font-semibold hover:text-pink-700 flex items-center gap-1">
+        <button className="text-pink-600 font-semibold flex items-center gap-1">
           See All <FaArrowRight className="text-lg" />
         </button>
       </div>

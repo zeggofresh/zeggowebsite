@@ -111,7 +111,7 @@ export default function HouseholdCleaning() {
     <div className="max-w-7xl mx-auto px-4 py-6 font-inter">
        <div className="flex justify-between items-center mb-4">
              <h2 className="text-2xl font-bold text-gray-900">Household Cleaning</h2>
-             <button className="text-pink-600 font-semibold hover:text-pink-700 flex items-center gap-1">
+             <button className="text-pink-600 font-semibold flex items-center gap-1">
                See All <FaArrowRight className="text-lg" />
              </button>
            </div>
@@ -142,14 +142,14 @@ export default function HouseholdCleaning() {
               <div className="self-end mb-2 flex items-center border border-pink-600 rounded-full overflow-hidden">
                 <button 
                   onClick={() => handleQuantityChange(product, cartItem.quantity - 1)}
-                  className="px-3 py-1 bg-white text-pink-600 font-bold text-sm hover:bg-pink-50"
+                  className="px-3 py-1 bg-white text-pink-600 font-bold text-sm"
                 >
                   -
                 </button>
                 <span className="px-2 text-pink-600 font-bold">{cartItem.quantity}</span>
                 <button 
                   onClick={() => handleQuantityChange(product, cartItem.quantity + 1)}
-                  className="px-3 py-1 bg-pink-600 text-white font-bold text-sm hover:bg-pink-700"
+                  className="px-3 py-1 bg-pink-600 text-white font-bold text-sm"
                 >
                   +
                 </button>
@@ -158,7 +158,7 @@ export default function HouseholdCleaning() {
               <div className="self-end mb-2 flex items-center border border-pink-600 rounded-full overflow-hidden">
                 <button 
                   onClick={() => handleAddToCart(product)}
-                  className="px-3 py-1 bg-pink-600 text-white font-bold text-sm hover:bg-pink-700"
+                  className="px-3 py-1 bg-pink-600 text-white font-bold text-sm"
                 >
                   ADD
                 </button>

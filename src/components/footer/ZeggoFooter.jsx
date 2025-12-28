@@ -34,8 +34,7 @@ const Footer = () => {
                   key={i}
                   className="w-10 h-10 rounded-full border border-gray-300
                              flex items-center justify-center
-                             text-gray-600 hover:text-pink-600
-                             hover:border-pink-600 cursor-pointer
+                             text-gray-600 cursor-pointer
                              transition"
                 >
                   <Icon size={18} />
@@ -65,7 +64,7 @@ const Footer = () => {
                 <li key={item}>
                   <a
                     href="#"
-                    className="text-gray-800 hover:text-pink-600"
+                    className="text-gray-800"
                   >
                     {item}
                   </a>
@@ -89,14 +88,14 @@ const Footer = () => {
                   {item === "Privacy Policy" ? (
                     <Link
                       to="/privacy-policy"
-                      className="text-gray-800 hover:text-pink-600"
+                      className="text-gray-800"
                     >
                       {item}
                     </Link>
                   ) : (
                     <a
                       href="#"
-                      className="text-gray-800 hover:text-pink-600"
+                      className="text-gray-800"
                     >
                       {item}
                     </a>
@@ -117,7 +116,7 @@ const Footer = () => {
                 href="#"
                 className="flex items-center justify-center gap-2
                            border border-gray-300 rounded-lg px-4 py-2
-                           hover:bg-gray-50 text-sm font-medium"
+                           text-sm font-medium"
               >
                 <FaGooglePlay size={18} />
                 Get it on Play Store
@@ -127,7 +126,7 @@ const Footer = () => {
                 href="#"
                 className="flex items-center justify-center gap-2
                            border border-gray-300 rounded-lg px-4 py-2
-                           hover:bg-gray-50 text-sm font-medium"
+                           text-sm font-medium"
               >
                 <FaApple size={18} />
                 Get it on App Store

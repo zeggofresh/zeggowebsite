@@ -27,7 +27,7 @@ export default function ProductDetail() {
           <p className="text-gray-600 mb-6">Sorry, this product is currently unavailable.</p>
           <button
             onClick={() => navigate("/")}
-            className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-3 rounded-lg font-bold"
+            className="bg-pink-600 text-white px-8 py-3 rounded-lg font-bold"
           >
             Browse Products
           </button>
@@ -81,7 +81,7 @@ export default function ProductDetail() {
       <header className="fixed top-16 left-0 right-0 z-40 h-14 bg-white border-b shadow-sm flex items-center justify-between px-4">
         <button
           onClick={() => navigate(-1)}
-          className="p-2 rounded-full ml-7 hover:bg-gray-100"
+          className="p-2 rounded-full ml-7"
         >
           <HiArrowLeft size={22} className="text-black" />
         </button>
@@ -90,7 +90,7 @@ export default function ProductDetail() {
           Product Details
         </h2>
 
-        <button className="p-2 rounded-full mr-8 hover:bg-gray-100">
+        <button className="p-2 rounded-full mr-8">
           <HiShare size={20} className="text-black" />
         </button>
       </header>
@@ -101,8 +101,8 @@ export default function ProductDetail() {
 
         {/* BREADCRUMB */}
         <nav className="max-w-7xl mx-auto px-4 py-2 text-sm text-gray-500 flex items-center gap-1" aria-label="Breadcrumb">
-          <a href="/" className="hover:underline">Home</a> <MdKeyboardArrowRight />
-          <a href={`/${product.category.toLowerCase()}`} className="hover:underline">{product.category}</a> <MdKeyboardArrowRight />
+          <a href="/" className="">Home</a> <MdKeyboardArrowRight />
+          <a href={`/${product.category.toLowerCase()}`} className="">{product.category}</a> <MdKeyboardArrowRight />
           <span className="text-gray-900 font-medium truncate">
             {product.name}
           </span>

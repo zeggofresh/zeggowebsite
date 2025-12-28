@@ -231,7 +231,7 @@ const Cart = ({ onClose }) => {
                   <div
                     onClick={() => setSelectedPayment("upi")}
                     className={`flex items-center gap-3 p-4 border-2 rounded-xl cursor-pointer transition-all ${
-                      selectedPayment === "upi" ? "border-pink-600 bg-pink-50" : "border-gray-200 hover:border-pink-300"
+                      selectedPayment === "upi" ? "border-pink-600 bg-pink-50" : "border-gray-200"
                     }`}
                   >
                     <FaMobileAlt className="text-2xl text-purple-600" />
@@ -249,7 +249,7 @@ const Cart = ({ onClose }) => {
                       setShowCardForm(true);
                     }}
                     className={`flex items-center gap-3 p-4 border-2 rounded-xl cursor-pointer transition-all ${
-                      selectedPayment === "card" ? "border-pink-600 bg-pink-50" : "border-gray-200 hover:border-pink-300"
+                      selectedPayment === "card" ? "border-pink-600 bg-pink-50" : "border-gray-200"
                     }`}
                   >
                     <FaCreditCard className="text-2xl text-blue-600" />
@@ -315,7 +315,7 @@ const Cart = ({ onClose }) => {
                   <div
                     onClick={() => setSelectedPayment("cod")}
                     className={`flex items-center gap-3 p-4 border-2 rounded-xl cursor-pointer transition-all ${
-                      selectedPayment === "cod" ? "border-pink-600 bg-pink-50" : "border-gray-200 hover:border-pink-300"
+                      selectedPayment === "cod" ? "border-pink-600 bg-pink-50" : "border-gray-200"
                     }`}
                   >
                     <span className="text-2xl">💵</span>
@@ -340,7 +340,7 @@ const Cart = ({ onClose }) => {
           {!showPayment ? (
             <button 
               onClick={() => setShowPayment(true)}
-              className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-xl text-lg font-semibold transition-colors"
+              className="w-full bg-pink-500 text-white py-3 rounded-xl text-lg font-semibold"
             >
               Add Address to Proceed
             </button>
@@ -350,7 +350,7 @@ const Cart = ({ onClose }) => {
               onClick={handlePayment}
               className={`w-full py-3 rounded-xl text-lg font-semibold transition-colors ${
                 selectedPayment 
-                  ? "bg-green-600 hover:bg-green-700 text-white" 
+                  ? "bg-green-600 text-white" 
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >

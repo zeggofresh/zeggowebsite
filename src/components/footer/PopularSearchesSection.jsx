@@ -75,7 +75,7 @@ const PopularSearches = () => {
           <a
             key={index}
             href="#"
-            className="text-sm text-gray-800 hover:text-pink-600"
+            className="text-sm text-gray-800"
           >
             {item}
           </a>

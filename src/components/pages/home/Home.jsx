@@ -102,7 +102,7 @@ export default function Home() {
                     className={`w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold transition-all duration-300 ${
                       isActive
                         ? "bg-pink-100 text-pink-600 scale-105 shadow-sm"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        : "bg-gray-100 text-gray-700"
                     }`}
                   >
                     {item.icon}
